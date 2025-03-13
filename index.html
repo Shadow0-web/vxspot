@@ -283,7 +283,7 @@
         <div class="botones-container">
 
             <div class="boton-instalar">
-                <!-- Ícono de ruedita -->
+                <!-- primer seccion -->
                 <i class="fas fa-cog editar-icono"></i>
                 <img src="imagenes/delta.png" alt="Delta">
                 <h3>Delta</h3>
@@ -415,20 +415,31 @@
         document.getElementById('boton-retroceso').addEventListener('click', function() {
             window.history.back();
         });
+
+        import { Analytics } from "@vercel/analytics/react"
     </script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/parse/3.4.1/parse.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
 <script>
-    // Configuración de Back4App
+
     Parse.initialize("5m6w2VORNOrmWX2YKAGJAjUF7XqRj3CUFSu34qoz", "taIPruK9w7amlQEpOqE2NLRoGglVv1tMaZVdNp1a");
     Parse.serverURL = 'https://parseapi.back4app.com/';
 
-    // Función para retroceder
+
+    const CONTRASEÑA_HASH = "5aa7be94a0965f1dc7df42d77ebc64b4a478d37306a88f795ed550b549b84623"; 
+
+ 
+    function hashSHA256(text) {
+        return CryptoJS.SHA256(text).toString(CryptoJS.enc.Hex);
+    }
+
+
     document.getElementById('boton-retroceso').addEventListener('click', function() {
         window.history.back();
     });
 
-    // Mostrar campo de contraseña al hacer clic en el ícono de ruedita
+   
     document.querySelectorAll('.editar-icono').forEach(icono => {
         icono.addEventListener('click', function() {
             const contenedorContraseña = this.closest('.boton-instalar').querySelector('.contenedor-contraseña');
@@ -436,13 +447,17 @@
         });
     });
 
-    // Verificar contraseña
+ 
     document.querySelectorAll('.verificar-contraseña').forEach(boton => {
         boton.addEventListener('click', function() {
             const passwordInput = this.previousElementSibling;
-            const correctPassword = "1234"; // Cambia esto por tu contraseña
+            const inputPassword = passwordInput.value;
 
-            if (passwordInput.value === correctPassword) {
+    
+            const inputHash = hashSHA256(inputPassword);
+
+            if (inputHash === CONTRASEÑA_HASH) {
+          
                 const contenedorContraseña = this.closest('.contenedor-contraseña');
                 contenedorContraseña.style.display = 'none';
 
@@ -454,7 +469,7 @@
         });
     });
 
-    // Guardar cambios en Back4App
+
     document.querySelectorAll('.guardar-btn').forEach(button => {
         button.addEventListener('click', async function() {
             const executor = this.closest('.boton-instalar');
@@ -502,7 +517,7 @@
         });
     });
 
-    // Cargar datos guardados al iniciar la página
+ 
     document.addEventListener('DOMContentLoaded', async () => {
         const Executor = Parse.Object.extend("Executor");
         const query = new Parse.Query(Executor);
