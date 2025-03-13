@@ -208,7 +208,6 @@
         <div class="botones-container">
 
             <div class="boton-instalar">
-                <!-- Ícono de ruedita -->
                 <i class="fas fa-cog editar-icono"></i>
                 <img src="imagenes/delta.png" alt="Delta">
                 <h3>Delta</h3>
@@ -418,117 +417,119 @@
         });
     </script>
 
-    <!-- Firebase SDK (versión modular) -->
-    <script type="module">
-        // Importa los módulos de Firebase
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-app.js";
-        import { getFirestore, doc, setDoc, getDocs, collection } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-firestore.js";
+<script src="https://cdnjs.cloudflare.com/ajax/libs/parse/3.4.1/parse.min.js"></script>
+<script>
+    // Configuración de Back4App
+    Parse.initialize("5m6w2VORNOrmWX2YKAGJAjUF7XqRj3CUFSu34qoz", "taIPruK9w7amlQEpOqE2NLRoGglVv1tMaZVdNp1a");
+    Parse.serverURL = 'https://parseapi.back4app.com/';
 
-        // Configura Firebase
-        const firebaseConfig = {
-            apiKey: "AIzaSyCoebSOmXkFL0bObcpWaHhABWHrxcK2ego",
-            authDomain: "vxspot-a5df9.firebaseapp.com",
-            databaseURL: "https://vxspot-a5df9-default-rtdb.firebaseio.com",
-            projectId: "vxspot-a5df9",
-            storageBucket: "vxspot-a5df9.firebasestorage.app",
-            messagingSenderId: "238803527233",
-            appId: "1:238803527233:web:8c88bd8293c3f9f98948c0",
-            measurementId: "G-WJTPX1XQG0"
-        };
+    // Función para retroceder
+    document.getElementById('boton-retroceso').addEventListener('click', function() {
+        window.history.back();
+    });
 
-        // Inicializa Firebase
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
-
-        // Mostrar campo de contraseña al hacer clic en el ícono de ruedita
-        document.querySelectorAll('.editar-icono').forEach(icono => {
-            icono.addEventListener('click', function() {
-                const contenedorContraseña = this.closest('.boton-instalar').querySelector('.contenedor-contraseña');
-                contenedorContraseña.style.display = 'block';
-            });
+    // Mostrar campo de contraseña al hacer clic en el ícono de ruedita
+    document.querySelectorAll('.editar-icono').forEach(icono => {
+        icono.addEventListener('click', function() {
+            const contenedorContraseña = this.closest('.boton-instalar').querySelector('.contenedor-contraseña');
+            contenedorContraseña.style.display = 'block';
         });
+    });
 
-        // Verificar contraseña
-        document.querySelectorAll('.verificar-contraseña').forEach(boton => {
-            boton.addEventListener('click', function() {
-                const passwordInput = this.previousElementSibling;
-                const correctPassword = "1234"; // Cambia esto por tu contraseña
+    // Verificar contraseña
+    document.querySelectorAll('.verificar-contraseña').forEach(boton => {
+        boton.addEventListener('click', function() {
+            const passwordInput = this.previousElementSibling;
+            const correctPassword = "1234"; // Cambia esto por tu contraseña
 
-                if (passwordInput.value === correctPassword) {
-                    // Ocultar el campo de contraseña
-                    const contenedorContraseña = this.closest('.contenedor-contraseña');
-                    contenedorContraseña.style.display = 'none';
+            if (passwordInput.value === correctPassword) {
+                const contenedorContraseña = this.closest('.contenedor-contraseña');
+                contenedorContraseña.style.display = 'none';
 
-                    // Mostrar el menú de edición
-                    const menuEdicion = this.closest('.boton-instalar').querySelector('.menu-edicion');
-                    menuEdicion.style.display = 'block';
-                } else {
-                    alert('Contraseña incorrecta');
-                }
-            });
-        });
-
-        // Guardar cambios en Firestore
-        document.querySelectorAll('.guardar-btn').forEach(button => {
-            button.addEventListener('click', async function() {
-                const executor = this.closest('.boton-instalar');
-                const nombreExecutor = executor.querySelector('h3').textContent;
-                const nuevaVersion = executor.querySelector('.nueva-version').value;
-                const nuevoEstado = executor.querySelector('.nuevo-estado').value;
-                const nuevoEnlace = executor.querySelector('.nuevo-enlace').value;
-
-                if (!nuevaVersion || !nuevoEstado || !nuevoEnlace) {
-                    alert('Por favor, completa todos los campos.');
-                    return;
-                }
-
-                try {
-                    // Guardar en Firestore
-                    await setDoc(doc(db, "executors", nombreExecutor), {
-                        version: nuevaVersion,
-                        estado: nuevoEstado,
-                        enlace: nuevoEnlace
-                    });
-
-                    alert('Cambios guardados en la nube.');
-
-                    // Actualizar la interfaz
-                    executor.querySelector('p:nth-of-type(1)').textContent = `Versión: ${nuevaVersion}`;
-                    executor.querySelector('p:nth-of-type(2)').textContent = `Estado: ${nuevoEstado}`;
-                    executor.querySelector('.descargar').href = nuevoEnlace;
-
-                    // Ocultar el menú de edición
-                    const menuEdicion = executor.querySelector('.menu-edicion');
-                    menuEdicion.style.display = 'none';
-                } catch (error) {
-                    console.error("Error al guardar: ", error);
-                }
-            });
-        });
-
-        // Cargar datos guardados al iniciar la página
-        document.addEventListener('DOMContentLoaded', async () => {
-            try {
-                const querySnapshot = await getDocs(collection(db, "executors"));
-                querySnapshot.forEach((doc) => {
-                    const executorId = doc.id;
-                    const { version, estado, enlace } = doc.data();
-
-                    const executor = Array.from(document.querySelectorAll('.boton-instalar h3')).find(
-                        h3 => h3.textContent === executorId
-                    ).closest('.boton-instalar');
-
-                    if (executor) {
-                        executor.querySelector('p:nth-of-type(1)').textContent = `Versión: ${version}`;
-                        executor.querySelector('p:nth-of-type(2)').textContent = `Estado: ${estado}`;
-                        executor.querySelector('.descargar').href = enlace;
-                    }
-                });
-            } catch (error) {
-                console.error("Error al cargar datos: ", error);
+                const menuEdicion = this.closest('.boton-instalar').querySelector('.menu-edicion');
+                menuEdicion.style.display = 'block';
+            } else {
+                alert('Contraseña incorrecta');
             }
         });
-    </script>
+    });
+
+    // Guardar cambios en Back4App
+    document.querySelectorAll('.guardar-btn').forEach(button => {
+        button.addEventListener('click', async function() {
+            const executor = this.closest('.boton-instalar');
+            const nombreExecutor = executor.querySelector('h3').textContent;
+            const nuevaVersion = executor.querySelector('.nueva-version').value;
+            const nuevoEstado = executor.querySelector('.nuevo-estado').value;
+            const nuevoEnlace = executor.querySelector('.nuevo-enlace').value;
+
+            if (!nuevaVersion || !nuevoEstado || !nuevoEnlace) {
+                alert('Por favor, completa todos los campos.');
+                return;
+            }
+
+            const Executor = Parse.Object.extend("Executor");
+            const query = new Parse.Query(Executor);
+            query.equalTo("nombre", nombreExecutor);
+
+            try {
+                const results = await query.first();
+                if (results) {
+                    results.set("version", nuevaVersion);
+                    results.set("estado", nuevoEstado);
+                    results.set("enlace", nuevoEnlace);
+                    await results.save();
+                } else {
+                    const newExecutor = new Executor();
+                    newExecutor.set("nombre", nombreExecutor);
+                    newExecutor.set("version", nuevaVersion);
+                    newExecutor.set("estado", nuevoEstado);
+                    newExecutor.set("enlace", nuevoEnlace);
+                    await newExecutor.save();
+                }
+
+                alert('Cambios guardados en la nube.');
+
+                executor.querySelector('p:nth-of-type(1)').textContent = `Versión: ${nuevaVersion}`;
+                executor.querySelector('p:nth-of-type(2)').textContent = `Estado: ${nuevoEstado}`;
+                executor.querySelector('.descargar').href = nuevoEnlace;
+
+                const menuEdicion = executor.querySelector('.menu-edicion');
+                menuEdicion.style.display = 'none';
+            } catch (error) {
+                console.error("Error al guardar: ", error);
+            }
+        });
+    });
+
+    // Cargar datos guardados al iniciar la página
+    document.addEventListener('DOMContentLoaded', async () => {
+        const Executor = Parse.Object.extend("Executor");
+        const query = new Parse.Query(Executor);
+
+        try {
+            const results = await query.find();
+            results.forEach(executor => {
+                const nombreExecutor = executor.get("nombre");
+                const version = executor.get("version");
+                const estado = executor.get("estado");
+                const enlace = executor.get("enlace");
+
+                const executorElement = Array.from(document.querySelectorAll('.boton-instalar h3')).find(
+                    h3 => h3.textContent === nombreExecutor
+                ).closest('.boton-instalar');
+
+                if (executorElement) {
+                    executorElement.querySelector('p:nth-of-type(1)').textContent = `Versión: ${version}`;
+                    executorElement.querySelector('p:nth-of-type(2)').textContent = `Estado: ${estado}`;
+                    executorElement.querySelector('.descargar').href = enlace;
+                }
+            });
+        } catch (error) {
+            console.error("Error al cargar datos: ", error);
+        }
+    });
+</script>
     <style>
         .editar-icono {
     position: absolute;
