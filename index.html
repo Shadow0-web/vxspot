@@ -1,0 +1,1720 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vxspot</title>
+    
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #000000d2;
+            color: #000000;
+        }
+
+        #boton-retroceso {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #000000;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            transition: background-color 0.3s ease;
+            opacity: 0;
+        }
+
+        #boton-retroceso:hover {
+            background-color: #000000;
+        }
+
+        section {
+            background-color: #121212;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 20px 20px rgba(9, 202, 228, 0.1);
+            position: relative;
+            overflow: hidden;
+            transition: background-color 0.3s ease;
+            opacity: 0.8;
+
+
+
+        }
+        #section:hover {
+            background-color: #cc1c1c;
+        }
+
+        h2 {
+            color: #ffffff;
+            border-bottom: 2px solid #000000;
+            padding-bottom: 10px;
+        }
+
+        .botones-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 20px;
+    margin-top: 15px;
+
+}
+
+
+@media (max-width: 768px) {
+    .botones-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+        .boton-instalar {
+            background-color: #1d1d1d;
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-decoration: none;
+            color: rgb(211, 0, 0);
+            position: relative;
+            overflow: hidden;
+            
+        }
+
+        .boton-instalar::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 300%;
+            height: 300%;
+            background: radial-gradient(circle, rgba(4, 134, 255, 0.1), rgba(255, 255, 255, 0) 70%);
+            transform: translate(-50%, -50%) scale(0);
+            transition: transform 0.5s ease, opacity 0.5s ease;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .boton-instalar:hover::before {
+            transform: translate(-50%, -50%) scale(1);
+            opacity: 1;
+        }
+
+        .boton-instalar:active::before {
+            background: radial-gradient(circle, rgba(248, 2, 2, 0.2), rgba(255, 255, 255, 0) 70%);
+        }
+
+        .boton-instalar img {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 10px;
+            border-radius: 10px;
+        }
+
+        .boton-instalar h3 {
+            margin: 10px 0;
+            font-size: 18px;
+            color: #ffffff;
+        }
+
+        .boton-instalar p {
+            margin: 5px 0;
+            font-size: 14px;
+            color: #9e9e9e;
+        }
+
+        .boton-instalar .descargar {
+            display: inline-block;
+            background-color: #000000;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 14px;
+            margin-top: 10px;
+            transition: background-color 0.3s ease;
+        }
+
+        .boton-instalar .descargar:hover {
+            background-color: #3d4780;
+        }
+
+        .title2 {
+            width: 300px;
+            height: 60px;
+            color: #ffffff;
+            background-color: #1d1d1d;
+            margin: 10px auto;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Arial', sans-serif;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            border: 2px solid #333333;
+            box-shadow: 0 4px 16px rgba(255, 0, 0, 0.1);
+            cursor: pointer;
+        }
+
+        .title2:hover {
+            background-color: #1a1a1a;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+            border-color: #454545;
+        }
+
+        .android, .IOS {
+            vertical-align: middle;
+            color: #ff0000;
+        }
+
+        .android {
+            height: 40px;
+            width: 40px;
+            align-self: normal;
+            text-align: center;
+            vertical-align: bottom;
+        }
+
+        .IOS {
+            height: 40px;
+            width: 40px;
+            align-self: normal;
+            text-align: center;
+            vertical-align: bottom;
+        }
+        .IOS2 {
+            height: 40px;
+            width: 75px;
+            align-self: normal;
+            text-align: center;
+            vertical-align: bottom;
+        }
+
+        .cubomc {
+            width: 23px;
+            height: 25px;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            color: #000000;
+        }
+        .editar-icono {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    color: #9e9e9e;
+    font-size: 20px;
+    transition: color 0.3s ease;
+}
+
+.editar-icono:hover {
+    color: #ffffff;
+}
+    </style>
+</head>
+<body>
+    <button id="boton-retroceso">←</button>
+    <header>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+        <h1 class="title2">Executores</h1>
+    </header>
+    <script src="https://www.gstatic.com/firebasejs/10.1.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.1.0/firebase-firestore.js"></script>
+   
+    <section>
+        <h2><img src="imagenes/androidicon.png" alt="icon" class="android"> Executores Android</h2>
+        <div class="botones-container">
+
+<!-- primera seccion android executores -->
+
+            <div class="boton-instalar">
+                <i class="fas fa-cog editar-icono"></i>
+                <img src="imagenes/fluxus.png" alt="Delta">
+                <h3>Fluxus</h3>
+                <p>Versión: Cargando</p>
+                <p>Estado: Cargando</p>
+                <div class="contenedor-contraseña" style="display: none;">
+                    <input type="password" class="password-input" placeholder="Contraseña">
+                    <button class="verificar-contraseña">Verificar</button>
+                </div>
+                <div class="menu-edicion" style="display: none;">
+                    <input type="text" class="nueva-version" placeholder="Nueva versión">
+                    <input type="text" class="nuevo-estado" placeholder="Nuevo estado">
+                    <input type="text" class="nuevo-enlace" placeholder="Nuevo enlace de descarga">
+                    <button class="guardar-btn">Guardar</button>
+                </div>
+                <a href="" class="descargar">Descargar</a>
+            </div>
+
+            <div class="boton-instalar">
+                <i class="fas fa-cog editar-icono"></i>
+                <img src="imagenes/delta.png" alt="Delta">
+                <h3>Delta</h3>
+                <p>Versión: Cargando</p>
+                <p>Estado: Cargando</p>
+                <div class="contenedor-contraseña" style="display: none;">
+                    <input type="password" class="password-input" placeholder="Contraseña">
+                    <button class="verificar-contraseña">Verificar</button>
+                </div>
+                <div class="menu-edicion" style="display: none;">
+                    <input type="text" class="nueva-version" placeholder="Nueva versión">
+                    <input type="text" class="nuevo-estado" placeholder="Nuevo estado">
+                    <input type="text" class="nuevo-enlace" placeholder="Nuevo enlace de descarga">
+                    <button class="guardar-btn">Guardar</button>
+                </div>
+                <a href="" class="descargar">Descargar</a>
+            </div>
+
+            <div class="boton-instalar">
+                <i class="fas fa-cog editar-icono"></i>
+                <img src="imagenes/arceus.png" alt="Delta">
+                <h3>Arceus x</h3>
+                <p>Versión: Cargando</p>
+                <p>Estado: Cargando</p>
+                <div class="contenedor-contraseña" style="display: none;">
+                    <input type="password" class="password-input" placeholder="Contraseña">
+                    <button class="verificar-contraseña">Verificar</button>
+                </div>
+                <div class="menu-edicion" style="display: none;">
+                    <input type="text" class="nueva-version" placeholder="Nueva versión">
+                    <input type="text" class="nuevo-estado" placeholder="Nuevo estado">
+                    <input type="text" class="nuevo-enlace" placeholder="Nuevo enlace de descarga">
+                    <button class="guardar-btn">Guardar</button>
+                </div>
+                <a href="" class="descargar">Descargar</a>
+            </div>
+
+            <div class="boton-instalar">
+                <i class="fas fa-cog editar-icono"></i>
+                <img src="imagenes/crypti.png" alt="Delta">
+                <h3>Cryptic</h3>
+                <p>Versión: Cargando</p>
+                <p>Estado: Cargando</p>
+                <div class="contenedor-contraseña" style="display: none;">
+                    <input type="password" class="password-input" placeholder="Contraseña">
+                    <button class="verificar-contraseña">Verificar</button>
+                </div>
+                <div class="menu-edicion" style="display: none;">
+                    <input type="text" class="nueva-version" placeholder="Nueva versión">
+                    <input type="text" class="nuevo-estado" placeholder="Nuevo estado">
+                    <input type="text" class="nuevo-enlace" placeholder="Nuevo enlace de descarga">
+                    <button class="guardar-btn">Guardar</button>
+                </div>
+                <a href="" class="descargar">Descargar</a>
+            </div>
+
+            <div class="boton-instalar">
+                <i class="fas fa-cog editar-icono"></i>
+                <img src="imagenes/codex.png" alt="Delta">
+                <h3>Codex</h3>
+                <p>Versión: Cargando</p>
+                <p>Estado: Cargando</p>
+                <div class="contenedor-contraseña" style="display: none;">
+                    <input type="password" class="password-input" placeholder="Contraseña">
+                    <button class="verificar-contraseña">Verificar</button>
+                </div>
+                <div class="menu-edicion" style="display: none;">
+                    <input type="text" class="nueva-version" placeholder="Nueva versión">
+                    <input type="text" class="nuevo-estado" placeholder="Nuevo estado">
+                    <input type="text" class="nuevo-enlace" placeholder="Nuevo enlace de descarga">
+                    <button class="guardar-btn">Guardar</button>
+                </div>
+                <a href="" class="descargar">Descargar</a>
+            </div>
+
+            <div class="boton-instalar">
+                <i class="fas fa-cog editar-icono"></i>
+                <img src="imagenes/vegaX.png" alt="Delta">
+                <h3>VegaX</h3>
+                <p>Versión: Cargando</p>
+                <p>Estado: Cargando</p>
+                <div class="contenedor-contraseña" style="display: none;">
+                    <input type="password" class="password-input" placeholder="Contraseña">
+                    <button class="verificar-contraseña">Verificar</button>
+                </div>
+                <div class="menu-edicion" style="display: none;">
+                    <input type="text" class="nueva-version" placeholder="Nueva versión">
+                    <input type="text" class="nuevo-estado" placeholder="Nuevo estado">
+                    <input type="text" class="nuevo-enlace" placeholder="Nuevo enlace de descarga">
+                    <button class="guardar-btn">Guardar</button>
+                </div>
+                <a href="" class="descargar">Descargar</a>
+            </div>
+
+            <div class="boton-instalar">
+                <i class="fas fa-cog editar-icono"></i>
+                <img src="imagenes/trigon.png" alt="Delta">
+                <h3>Trigon</h3>
+                <p>Versión: Cargando</p>
+                <p>Estado: Cargando</p>
+                <div class="contenedor-contraseña" style="display: none;">
+                    <input type="password" class="password-input" placeholder="Contraseña">
+                    <button class="verificar-contraseña">Verificar</button>
+                </div>
+                <div class="menu-edicion" style="display: none;">
+                    <input type="text" class="nueva-version" placeholder="Nueva versión">
+                    <input type="text" class="nuevo-estado" placeholder="Nuevo estado">
+                    <input type="text" class="nuevo-enlace" placeholder="Nuevo enlace de descarga">
+                    <button class="guardar-btn">Guardar</button>
+                </div>
+                <a href="" class="descargar">Descargar</a>
+            </div>
+
+            <div class="boton-instalar">
+                <i class="fas fa-cog editar-icono"></i>
+                <img src="imagenes/Evon.png" alt="Delta">
+                <h3>Evon</h3>
+                <p>Versión: Cargando</p>
+                <p>Estado: Cargando</p>
+                <div class="contenedor-contraseña" style="display: none;">
+                    <input type="password" class="password-input" placeholder="Contraseña">
+                    <button class="verificar-contraseña">Verificar</button>
+                </div>
+                <div class="menu-edicion" style="display: none;">
+                    <input type="text" class="nueva-version" placeholder="Nueva versión">
+                    <input type="text" class="nuevo-estado" placeholder="Nuevo estado">
+                    <input type="text" class="nuevo-enlace" placeholder="Nuevo enlace de descarga">
+                    <button class="guardar-btn">Guardar</button>
+                </div>
+                <a href="" class="descargar">Descargar</a>
+            </div>
+
+            <div class="boton-instalar">
+                <i class="fas fa-cog editar-icono"></i>
+                <img src="imagenes/cubix.png" alt="Delta">
+                <h3>Cubix</h3>
+                <p>Versión: Cargando</p>
+                <p>Estado: Cargando</p>
+                <div class="contenedor-contraseña" style="display: none;">
+                    <input type="password" class="password-input" placeholder="Contraseña">
+                    <button class="verificar-contraseña">Verificar</button>
+                </div>
+                <div class="menu-edicion" style="display: none;">
+                    <input type="text" class="nueva-version" placeholder="Nueva versión">
+                    <input type="text" class="nuevo-estado" placeholder="Nuevo estado">
+                    <input type="text" class="nuevo-enlace" placeholder="Nuevo enlace de descarga">
+                    <button class="guardar-btn">Guardar</button>
+                </div>
+                <a href="" class="descargar">Descargar</a>
+            </div>
+
+            <div class="boton-instalar">
+                <i class="fas fa-cog editar-icono"></i>
+                <img src="imagenes/nebula.png" alt="">
+                <h3>Nebula</h3>
+                <p>Versión: Cargando</p>
+                <p>Estado: Cargando</p>
+                <div class="contenedor-contraseña" style="display: none;">
+                    <input type="password" class="password-input" placeholder="Contraseña">
+                    <button class="verificar-contraseña">Verificar</button>
+                </div>
+                <div class="menu-edicion" style="display: none;">
+                    <input type="text" class="nueva-version" placeholder="Nueva versión">
+                    <input type="text" class="nuevo-estado" placeholder="Nuevo estado">
+                    <input type="text" class="nuevo-enlace" placeholder="Nuevo enlace de descarga">
+                    <button class="guardar-btn">Guardar</button>
+                </div>
+                <a href="" class="descargar">Descargar</a>
+            </div>
+
+            <div class="boton-instalar">
+                <i class="fas fa-cog editar-icono"></i>
+                <img src="imagenes/fros.png" alt="">
+                <h3>Frostware</h3>
+                <p>Versión: Cargando</p>
+                <p>Estado: Cargando</p>
+                <div class="contenedor-contraseña" style="display: none;">
+                    <input type="password" class="password-input" placeholder="Contraseña">
+                    <button class="verificar-contraseña">Verificar</button>
+                </div>
+                <div class="menu-edicion" style="display: none;">
+                    <input type="text" class="nueva-version" placeholder="Nueva versión">
+                    <input type="text" class="nuevo-estado" placeholder="Nuevo estado">
+                    <input type="text" class="nuevo-enlace" placeholder="Nuevo enlace de descarga">
+                    <button class="guardar-btn">Guardar</button>
+                </div>
+                <a href="" class="descargar">Descargar</a>
+            </div>
+
+            <div class="boton-instalar">
+                <i class="fas fa-cog editar-icono"></i>
+                <img src="imagenes/illusion.png" alt="">
+                <h3>Illusion</h3>
+                <p>Versión: Cargando</p>
+                <p>Estado: Cargando</p>
+                <div class="contenedor-contraseña" style="display: none;">
+                    <input type="password" class="password-input" placeholder="Contraseña">
+                    <button class="verificar-contraseña">Verificar</button>
+                </div>
+                <div class="menu-edicion" style="display: none;">
+                    <input type="text" class="nueva-version" placeholder="Nueva versión">
+                    <input type="text" class="nuevo-estado" placeholder="Nuevo estado">
+                    <input type="text" class="nuevo-enlace" placeholder="Nuevo enlace de descarga">
+                    <button class="guardar-btn">Guardar</button>
+                </div>
+                <a href="" class="descargar">Descargar</a>
+            </div>
+
+            <div class="boton-instalar">
+                <i class="fas fa-cog editar-icono"></i>
+                <img src="imagenes/roni.png" alt="">
+                <h3>RoniX</h3>
+                <p>Versión: Cargando</p>
+                <p>Estado: Cargando</p>
+                <div class="contenedor-contraseña" style="display: none;">
+                    <input type="password" class="password-input" placeholder="Contraseña">
+                    <button class="verificar-contraseña">Verificar</button>
+                </div>
+                <div class="menu-edicion" style="display: none;">
+                    <input type="text" class="nueva-version" placeholder="Nueva versión">
+                    <input type="text" class="nuevo-estado" placeholder="Nuevo estado">
+                    <input type="text" class="nuevo-enlace" placeholder="Nuevo enlace de descarga">
+                    <button class="guardar-btn">Guardar</button>
+                </div>
+                <a href="" class="descargar">Descargar</a>
+            </div>
+
+            <div class="boton-instalar">
+                <i class="fas fa-cog editar-icono"></i>
+                <img src="imagenes/reveli.png" alt="">
+                <h3>ReveliX</h3>
+                <p>Versión: Cargando</p>
+                <p>Estado: Cargando</p>
+                <div class="contenedor-contraseña" style="display: none;">
+                    <input type="password" class="password-input" placeholder="Contraseña">
+                    <button class="verificar-contraseña">Verificar</button>
+                </div>
+                <div class="menu-edicion" style="display: none;">
+                    <input type="text" class="nueva-version" placeholder="Nueva versión">
+                    <input type="text" class="nuevo-estado" placeholder="Nuevo estado">
+                    <input type="text" class="nuevo-enlace" placeholder="Nuevo enlace de descarga">
+                    <button class="guardar-btn">Guardar</button>
+                </div>
+                <a href="" class="descargar">Descargar</a>
+            </div>
+
+            <div class="boton-instalar">
+                <i class="fas fa-cog editar-icono"></i>
+                <img src="imagenes/quest.png" alt="">
+                <h3>QuestX</h3>
+                <p>Versión: Cargando</p>
+                <p>Estado: Cargando</p>
+                <div class="contenedor-contraseña" style="display: none;">
+                    <input type="password" class="password-input" placeholder="Contraseña">
+                    <button class="verificar-contraseña">Verificar</button>
+                </div>
+                <div class="menu-edicion" style="display: none;">
+                    <input type="text" class="nueva-version" placeholder="Nueva versión">
+                    <input type="text" class="nuevo-estado" placeholder="Nuevo estado">
+                    <input type="text" class="nuevo-enlace" placeholder="Nuevo enlace de descarga">
+                    <button class="guardar-btn">Guardar</button>
+                </div>
+                <a href="" class="descargar">Descargar</a>
+            </div>
+
+            <div class="boton-instalar">
+                <i class="fas fa-cog editar-icono"></i>
+                <img src="imagenes/ker.png" alt="">
+                <h3>Krnl</h3>
+                <p>Versión: Cargando</p>
+                <p>Estado: Cargando</p>
+                <div class="contenedor-contraseña" style="display: none;">
+                    <input type="password" class="password-input" placeholder="Contraseña">
+                    <button class="verificar-contraseña">Verificar</button>
+                </div>
+                <div class="menu-edicion" style="display: none;">
+                    <input type="text" class="nueva-version" placeholder="Nueva versión">
+                    <input type="text" class="nuevo-estado" placeholder="Nuevo estado">
+                    <input type="text" class="nuevo-enlace" placeholder="Nuevo enlace de descarga">
+                    <button class="guardar-btn">Guardar</button>
+                </div>
+                <a href="" class="descargar">Descargar</a>
+            </div>
+
+        </div>
+    </section>
+
+
+    <section>
+        <!-- segunda seccion Ios executores -->
+        <h2><img src="imagenes/iosicon.png" alt="" class="IOS"> Executores iOS</h2>
+        <div class="botones-container">
+
+            <div class="boton-instalar">
+                <i class="fas fa-cog editar-icono"></i>
+                <img src="imagenes/delta.png" alt="Delta">
+                <h3>Delta ios</h3>
+                <p>Versión: Cargando</p>
+                <p>Estado: Cargando</p>
+                <div class="contenedor-contraseña" style="display: none;">
+                    <input type="password" class="password-input" placeholder="Contraseña">
+                    <button class="verificar-contraseña">Verificar</button>
+                </div>
+                <div class="menu-edicion" style="display: none;">
+                    <input type="text" class="nueva-version" placeholder="Nueva versión">
+                    <input type="text" class="nuevo-estado" placeholder="Nuevo estado">
+                    <input type="text" class="nuevo-enlace" placeholder="Nuevo enlace de descarga">
+                    <button class="guardar-btn">Guardar</button>
+                </div>
+                <a href="" class="descargar">Descargar</a>
+            </div>
+
+            <div class="boton-instalar">
+                <i class="fas fa-cog editar-icono"></i>
+                <img src="imagenes/arceus.png" alt="Delta">
+                <h3>Arceus X ios</h3>
+                <p>Versión: Cargando</p>
+                <p>Estado: Cargando</p>
+                <div class="contenedor-contraseña" style="display: none;">
+                    <input type="password" class="password-input" placeholder="Contraseña">
+                    <button class="verificar-contraseña">Verificar</button>
+                </div>
+                <div class="menu-edicion" style="display: none;">
+                    <input type="text" class="nueva-version" placeholder="Nueva versión">
+                    <input type="text" class="nuevo-estado" placeholder="Nuevo estado">
+                    <input type="text" class="nuevo-enlace" placeholder="Nuevo enlace de descarga">
+                    <button class="guardar-btn">Guardar</button>
+                </div>
+                <a href="" class="descargar">Descargar</a>
+            </div>
+
+            <div class="boton-instalar">
+                <i class="fas fa-cog editar-icono"></i>
+                <img src="imagenes/codex.png" alt="Delta">
+                <h3>Codex ios</h3>
+                <p>Versión: Cargando</p>
+                <p>Estado: Cargando</p>
+                <div class="contenedor-contraseña" style="display: none;">
+                    <input type="password" class="password-input" placeholder="Contraseña">
+                    <button class="verificar-contraseña">Verificar</button>
+                </div>
+                <div class="menu-edicion" style="display: none;">
+                    <input type="text" class="nueva-version" placeholder="Nueva versión">
+                    <input type="text" class="nuevo-estado" placeholder="Nuevo estado">
+                    <input type="text" class="nuevo-enlace" placeholder="Nuevo enlace de descarga">
+                    <button class="guardar-btn">Guardar</button>
+                </div>
+                <a href="" class="descargar">Descargar</a>
+            </div>
+
+            <div class="boton-instalar">
+                <i class="fas fa-cog editar-icono"></i>
+                <img src="imagenes/crypti.png" alt="Delta">
+                <h3>Cripty ios</h3>
+                <p>Versión: Cargando</p>
+                <p>Estado: Cargando</p>
+                <div class="contenedor-contraseña" style="display: none;">
+                    <input type="password" class="password-input" placeholder="Contraseña">
+                    <button class="verificar-contraseña">Verificar</button>
+                </div>
+                <div class="menu-edicion" style="display: none;">
+                    <input type="text" class="nueva-version" placeholder="Nueva versión">
+                    <input type="text" class="nuevo-estado" placeholder="Nuevo estado">
+                    <input type="text" class="nuevo-enlace" placeholder="Nuevo enlace de descarga">
+                    <button class="guardar-btn">Guardar</button>
+                </div>
+                <a href="" class="descargar">Descargar</a>
+            </div>
+
+            <div class="boton-instalar">
+                <i class="fas fa-cog editar-icono"></i>
+                <img src="imagenes/apleware.png" alt="Delta">
+                <h3>Appleware</h3>
+                <p>Versión: Cargando</p>
+                <p>Estado: Cargando</p>
+                <div class="contenedor-contraseña" style="display: none;">
+                    <input type="password" class="password-input" placeholder="Contraseña">
+                    <button class="verificar-contraseña">Verificar</button>
+                </div>
+                <div class="menu-edicion" style="display: none;">
+                    <input type="text" class="nueva-version" placeholder="Nueva versión">
+                    <input type="text" class="nuevo-estado" placeholder="Nuevo estado">
+                    <input type="text" class="nuevo-enlace" placeholder="Nuevo enlace de descarga">
+                    <button class="guardar-btn">Guardar</button>
+                </div>
+                <a href="" class="descargar">Descargar</a>
+            </div>
+       
+        </div>
+    </section>
+
+    <section>
+        <!-- tercera section executores vn ojala borren roblox -->
+        <h2><img src="imagenes/vng.png" alt="" class="IOS"> Executores VNG</h2>
+        <div class="botones-container">
+
+
+            <div class="boton-instalar">
+                <i class="fas fa-cog editar-icono"></i>
+                <img src="imagenes/arceus.png" alt="Delta">
+                <h3>Arceus VNG</h3>
+                <p>Versión: Cargando</p>
+                <p>Estado: Cargando</p>
+                <div class="contenedor-contraseña" style="display: none;">
+                    <input type="password" class="password-input" placeholder="Contraseña">
+                    <button class="verificar-contraseña">Verificar</button>
+                </div>
+                <div class="menu-edicion" style="display: none;">
+                    <input type="text" class="nueva-version" placeholder="Nueva versión">
+                    <input type="text" class="nuevo-estado" placeholder="Nuevo estado">
+                    <input type="text" class="nuevo-enlace" placeholder="Nuevo enlace de descarga">
+                    <button class="guardar-btn">Guardar</button>
+                </div>
+                <a href="" class="descargar">Descargar</a>
+            </div>
+
+
+            <div class="boton-instalar">
+                <i class="fas fa-cog editar-icono"></i>
+                <img src="imagenes/crypti.png" alt="Delta">
+                <h3>Cripty VNG</h3>
+                <p>Versión: Cargando</p>
+                <p>Estado: Cargando</p>
+                <div class="contenedor-contraseña" style="display: none;">
+                    <input type="password" class="password-input" placeholder="Contraseña">
+                    <button class="verificar-contraseña">Verificar</button>
+                </div>
+                <div class="menu-edicion" style="display: none;">
+                    <input type="text" class="nueva-version" placeholder="Nueva versión">
+                    <input type="text" class="nuevo-estado" placeholder="Nuevo estado">
+                    <input type="text" class="nuevo-enlace" placeholder="Nuevo enlace de descarga">
+                    <button class="guardar-btn">Guardar</button>
+                </div>
+                <a href="" class="descargar">Descargar</a>
+            </div>
+
+
+            <div class="boton-instalar">
+                <i class="fas fa-cog editar-icono"></i>
+                <img src="imagenes/codex.png" alt="Delta">
+                <h3>Codex VNG</h3>
+                <p>Versión: Cargando</p>
+                <p>Estado: Cargando</p>
+                <div class="contenedor-contraseña" style="display: none;">
+                    <input type="password" class="password-input" placeholder="Contraseña">
+                    <button class="verificar-contraseña">Verificar</button>
+                </div>
+                <div class="menu-edicion" style="display: none;">
+                    <input type="text" class="nueva-version" placeholder="Nueva versión">
+                    <input type="text" class="nuevo-estado" placeholder="Nuevo estado">
+                    <input type="text" class="nuevo-enlace" placeholder="Nuevo enlace de descarga">
+                    <button class="guardar-btn">Guardar</button>
+                </div>
+                <a href="" class="descargar">Descargar</a>
+            </div>
+
+    </section>       
+
+    <section>
+        <!-- Cuarta section executores pc ojala borren free fire -->
+        <h2><img src="imagenes/windows.png" alt="" class="IOS"> Windows Executores</h2>
+        <div class="botones-container">
+
+
+            <div class="boton-instalar">
+                <i class="fas fa-cog editar-icono"></i>
+                <img src="imagenes/xeno.png" alt="Delta">
+                <h3>Xeno</h3>
+                <p>Versión: Cargando</p>
+                <p>Estado: Cargando</p>
+                <div class="contenedor-contraseña" style="display: none;">
+                    <input type="password" class="password-input" placeholder="Contraseña">
+                    <button class="verificar-contraseña">Verificar</button>
+                </div>
+                <div class="menu-edicion" style="display: none;">
+                    <input type="text" class="nueva-version" placeholder="Nueva versión">
+                    <input type="text" class="nuevo-estado" placeholder="Nuevo estado">
+                    <input type="text" class="nuevo-enlace" placeholder="Nuevo enlace de descarga">
+                    <button class="guardar-btn">Guardar</button>
+                </div>
+                <a href="" class="descargar">Descargar</a>
+            </div>
+
+
+            <div class="boton-instalar">
+                <i class="fas fa-cog editar-icono"></i>
+                <img src="imagenes/crypti.png" alt="Delta">
+                <h3>Cripty Pc</h3>
+                <p>Versión: Cargando</p>
+                <p>Estado: Cargando</p>
+                <div class="contenedor-contraseña" style="display: none;">
+                    <input type="password" class="password-input" placeholder="Contraseña">
+                    <button class="verificar-contraseña">Verificar</button>
+                </div>
+                <div class="menu-edicion" style="display: none;">
+                    <input type="text" class="nueva-version" placeholder="Nueva versión">
+                    <input type="text" class="nuevo-estado" placeholder="Nuevo estado">
+                    <input type="text" class="nuevo-enlace" placeholder="Nuevo enlace de descarga">
+                    <button class="guardar-btn">Guardar</button>
+                </div>
+                <a href="" class="descargar">Descargar</a>
+            </div>
+
+
+            <div class="boton-instalar">
+                <i class="fas fa-cog editar-icono"></i>
+                <img src="imagenes/swift.png" alt="Delta">
+                <h3>Swift</h3>
+                <p>Versión: Cargando</p>
+                <p>Estado: Cargando</p>
+                <div class="contenedor-contraseña" style="display: none;">
+                    <input type="password" class="password-input" placeholder="Contraseña">
+                    <button class="verificar-contraseña">Verificar</button>
+                </div>
+                <div class="menu-edicion" style="display: none;">
+                    <input type="text" class="nueva-version" placeholder="Nueva versión">
+                    <input type="text" class="nuevo-estado" placeholder="Nuevo estado">
+                    <input type="text" class="nuevo-enlace" placeholder="Nuevo enlace de descarga">
+                    <button class="guardar-btn">Guardar</button>
+                </div>
+                <a href="" class="descargar">Descargar</a>
+            </div>
+
+            <div class="boton-instalar">
+                <i class="fas fa-cog editar-icono"></i>
+                <img src="imagenes/jjsploit.png" alt="Delta">
+                <h3>Jjsploit</h3>
+                <p>Versión: Cargando</p>
+                <p>Estado: Cargando</p>
+                <div class="contenedor-contraseña" style="display: none;">
+                    <input type="password" class="password-input" placeholder="Contraseña">
+                    <button class="verificar-contraseña">Verificar</button>
+                </div>
+                <div class="menu-edicion" style="display: none;">
+                    <input type="text" class="nueva-version" placeholder="Nueva versión">
+                    <input type="text" class="nuevo-estado" placeholder="Nuevo estado">
+                    <input type="text" class="nuevo-enlace" placeholder="Nuevo enlace de descarga">
+                    <button class="guardar-btn">Guardar</button>
+                </div>
+                <a href="" class="descargar">Descargar</a>
+            </div>
+
+            <div class="boton-instalar">
+                <i class="fas fa-cog editar-icono"></i>
+                <img src="imagenes/velocity.png" alt="Delta">
+                <h3>Velocity</h3>
+                <p>Versión: Cargando</p>
+                <p>Estado: Cargando</p>
+                <div class="contenedor-contraseña" style="display: none;">
+                    <input type="password" class="password-input" placeholder="Contraseña">
+                    <button class="verificar-contraseña">Verificar</button>
+                </div>
+                <div class="menu-edicion" style="display: none;">
+                    <input type="text" class="nueva-version" placeholder="Nueva versión">
+                    <input type="text" class="nuevo-estado" placeholder="Nuevo estado">
+                    <input type="text" class="nuevo-enlace" placeholder="Nuevo enlace de descarga">
+                    <button class="guardar-btn">Guardar</button>
+                </div>
+                <a href="" class="descargar">Descargar</a>
+            </div>
+
+    </section> 
+    
+    <section>
+<!-- quinta section emuladores pc y el que lea esto es gay -->
+        <h2><img src="imagenes/emulador.png" alt="" class="IOS2">Emuladores</h2>
+        <div class="botones-container">
+
+            <div class="boton-instalar">
+                <i class="fas fa-cog editar-icono"></i>
+                <img src="imagenes/nox.png" alt="Delta">
+                <h3>Nox</h3>
+                <p>Versión: Cargando</p>
+                <p>Estado: Cargando</p>
+                <div class="contenedor-contraseña" style="display: none;">
+                    <input type="password" class="password-input" placeholder="Contraseña">
+                    <button class="verificar-contraseña">Verificar</button>
+                </div>
+                <div class="menu-edicion" style="display: none;">
+                    <input type="text" class="nueva-version" placeholder="Nueva versión">
+                    <input type="text" class="nuevo-estado" placeholder="Nuevo estado">
+                    <input type="text" class="nuevo-enlace" placeholder="Nuevo enlace de descarga">
+                    <button class="guardar-btn">Guardar</button>
+                </div>
+                <a href="" class="descargar">Descargar</a>
+            </div>
+
+            <div class="boton-instalar">
+                <i class="fas fa-cog editar-icono"></i>
+                <img src="imagenes/mumuplayer.png" alt="Delta">
+                <h3>Mumu player</h3>
+                <p>Versión: Cargando</p>
+                <p>Estado: Cargando</p>
+                <div class="contenedor-contraseña" style="display: none;">
+                    <input type="password" class="password-input" placeholder="Contraseña">
+                    <button class="verificar-contraseña">Verificar</button>
+                </div>
+                <div class="menu-edicion" style="display: none;">
+                    <input type="text" class="nueva-version" placeholder="Nueva versión">
+                    <input type="text" class="nuevo-estado" placeholder="Nuevo estado">
+                    <input type="text" class="nuevo-enlace" placeholder="Nuevo enlace de descarga">
+                    <button class="guardar-btn">Guardar</button>
+                </div>
+                <a href="" class="descargar">Descargar</a>
+            </div>
+
+
+            <div class="boton-instalar">
+                <i class="fas fa-cog editar-icono"></i>
+                <img src="imagenes/ldplayer.png" alt="Delta">
+                <h3>LD player</h3>
+                <p>Versión: Cargando</p>
+                <p>Estado: Cargando</p>
+                <div class="contenedor-contraseña" style="display: none;">
+                    <input type="password" class="password-input" placeholder="Contraseña">
+                    <button class="verificar-contraseña">Verificar</button>
+                </div>
+                <div class="menu-edicion" style="display: none;">
+                    <input type="text" class="nueva-version" placeholder="Nueva versión">
+                    <input type="text" class="nuevo-estado" placeholder="Nuevo estado">
+                    <input type="text" class="nuevo-enlace" placeholder="Nuevo enlace de descarga">
+                    <button class="guardar-btn">Guardar</button>
+                </div>
+                <a href="" class="descargar">Descargar</a>
+            </div>
+            
+            <div class="boton-instalar">
+                <i class="fas fa-cog editar-icono"></i>
+                <img src="imagenes/ugphone.png" alt="Delta">
+                <h3>Ugphone</h3>
+                <p>Versión: Cargando</p>
+                <p>Estado: Cargando</p>
+                <div class="contenedor-contraseña" style="display: none;">
+                    <input type="password" class="password-input" placeholder="Contraseña">
+                    <button class="verificar-contraseña">Verificar</button>
+                </div>
+                <div class="menu-edicion" style="display: none;">
+                    <input type="text" class="nueva-version" placeholder="Nueva versión">
+                    <input type="text" class="nuevo-estado" placeholder="Nuevo estado">
+                    <input type="text" class="nuevo-enlace" placeholder="Nuevo enlace de descarga">
+                    <button class="guardar-btn">Guardar</button>
+                </div>
+                <a href="" class="descargar">Descargar</a>
+            </div>
+
+    </section> 
+<section>
+    <!-- sexta section executores craft ns puto nombre que me invente-->
+    <h2><img src="imagenes/androidicon.png" alt="" class="IOS"> + <img src="imagenes/cubomc.gif" alt="" class="IOS"> Executores Minecraft</h2>
+    <div class="botones-container">
+
+        <div class="boton-instalar">
+            <i class="fas fa-cog editar-icono"></i>
+            <img src="imagenes/fluxus.png" alt="Delta">
+            <h3>Fluxus Craft</h3>
+            <p>Versión: Cargando</p>
+            <p>Estado: Cargando</p>
+            <div class="contenedor-contraseña" style="display: none;">
+                <input type="password" class="password-input" placeholder="Contraseña">
+                <button class="verificar-contraseña">Verificar</button>
+            </div>
+            <div class="menu-edicion" style="display: none;">
+                <input type="text" class="nueva-version" placeholder="Nueva versión">
+                <input type="text" class="nuevo-estado" placeholder="Nuevo estado">
+                <input type="text" class="nuevo-enlace" placeholder="Nuevo enlace de descarga">
+                <button class="guardar-btn">Guardar</button>
+            </div>
+            <a href="" class="descargar">Descargar</a>
+        </div>
+
+        <div class="boton-instalar">
+            <i class="fas fa-cog editar-icono"></i>
+            <img src="imagenes/delta.png" alt="Delta">
+            <h3>Delta Craft</h3>
+            <p>Versión: Cargando</p>
+            <p>Estado: Cargando</p>
+            <div class="contenedor-contraseña" style="display: none;">
+                <input type="password" class="password-input" placeholder="Contraseña">
+                <button class="verificar-contraseña">Verificar</button>
+            </div>
+            <div class="menu-edicion" style="display: none;">
+                <input type="text" class="nueva-version" placeholder="Nueva versión">
+                <input type="text" class="nuevo-estado" placeholder="Nuevo estado">
+                <input type="text" class="nuevo-enlace" placeholder="Nuevo enlace de descarga">
+                <button class="guardar-btn">Guardar</button>
+            </div>
+            <a href="" class="descargar">Descargar</a>
+        </div>
+
+        <div class="boton-instalar">
+            <i class="fas fa-cog editar-icono"></i>
+            <img src="imagenes/arceus.png" alt="Delta">
+            <h3>Arceus Craft</h3>
+            <p>Versión: Cargando</p>
+            <p>Estado: Cargando</p>
+            <div class="contenedor-contraseña" style="display: none;">
+                <input type="password" class="password-input" placeholder="Contraseña">
+                <button class="verificar-contraseña">Verificar</button>
+            </div>
+            <div class="menu-edicion" style="display: none;">
+                <input type="text" class="nueva-version" placeholder="Nueva versión">
+                <input type="text" class="nuevo-estado" placeholder="Nuevo estado">
+                <input type="text" class="nuevo-enlace" placeholder="Nuevo enlace de descarga">
+                <button class="guardar-btn">Guardar</button>
+            </div>
+            <a href="" class="descargar">Descargar</a>
+        </div>
+
+        <div class="boton-instalar">
+            <i class="fas fa-cog editar-icono"></i>
+            <img src="imagenes/crypti.png" alt="Delta">
+            <h3>Cryptic Craft</h3>
+            <p>Versión: Cargando</p>
+            <p>Estado: Cargando</p>
+            <div class="contenedor-contraseña" style="display: none;">
+                <input type="password" class="password-input" placeholder="Contraseña">
+                <button class="verificar-contraseña">Verificar</button>
+            </div>
+            <div class="menu-edicion" style="display: none;">
+                <input type="text" class="nueva-version" placeholder="Nueva versión">
+                <input type="text" class="nuevo-estado" placeholder="Nuevo estado">
+                <input type="text" class="nuevo-enlace" placeholder="Nuevo enlace de descarga">
+                <button class="guardar-btn">Guardar</button>
+            </div>
+            <a href="" class="descargar">Descargar</a>
+        </div>
+
+        <div class="boton-instalar">
+            <i class="fas fa-cog editar-icono"></i>
+            <img src="imagenes/codex.png" alt="Delta">
+            <h3>Codex Craft</h3>
+            <p>Versión: Cargando</p>
+            <p>Estado: Cargando</p>
+            <div class="contenedor-contraseña" style="display: none;">
+                <input type="password" class="password-input" placeholder="Contraseña">
+                <button class="verificar-contraseña">Verificar</button>
+            </div>
+            <div class="menu-edicion" style="display: none;">
+                <input type="text" class="nueva-version" placeholder="Nueva versión">
+                <input type="text" class="nuevo-estado" placeholder="Nuevo estado">
+                <input type="text" class="nuevo-enlace" placeholder="Nuevo enlace de descarga">
+                <button class="guardar-btn">Guardar</button>
+            </div>
+            <a href="" class="descargar">Descargar</a>
+        </div>
+
+        <div class="boton-instalar">
+            <i class="fas fa-cog editar-icono"></i>
+            <img src="imagenes/vegaX.png" alt="Delta">
+            <h3>VegaX Craft</h3>
+            <p>Versión: Cargando</p>
+            <p>Estado: Cargando</p>
+            <div class="contenedor-contraseña" style="display: none;">
+                <input type="password" class="password-input" placeholder="Contraseña">
+                <button class="verificar-contraseña">Verificar</button>
+            </div>
+            <div class="menu-edicion" style="display: none;">
+                <input type="text" class="nueva-version" placeholder="Nueva versión">
+                <input type="text" class="nuevo-estado" placeholder="Nuevo estado">
+                <input type="text" class="nuevo-enlace" placeholder="Nuevo enlace de descarga">
+                <button class="guardar-btn">Guardar</button>
+            </div>
+            <a href="" class="descargar">Descargar</a>
+        </div>
+
+
+
+
+
+</section> 
+
+    <script>
+        document.addEventListener('keydown', function(e) {
+    if (e.key === "F12" || (e.ctrlKey && e.shiftKey && e.key === "I")) {
+        e.preventDefault();
+    }
+});
+
+document.addEventListener('contextmenu', function(e) {
+    e.preventDefault();
+});
+
+ocument.addEventListener('keydown', function(e) {
+    if (e.key === "s" || (e.ctrlKey && e.shiftKey && e.key === "I")) {
+        e.preventDefault();
+    }
+});
+
+document.addEventListener('keydown', function(event) {
+  
+    if ((event.ctrlKey || event.metaKey) && event.key === 's') {
+        event.preventDefault();
+        alert('Guardar esta página está deshabilitado.');
+    }
+});
+
+document.addEventListener('contextmenu', function(event) {
+    event.preventDefault(); 
+    alert('El menú contextual está deshabilitado.');
+});
+
+    </script>
+    <style>
+
+        .boton-instalar {
+            position: relative;
+            background-color: #1d1d1d;
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        .editar-icono {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+            color: #9e9e9e;
+            font-size: 20px;
+            transition: color 0.3s ease;
+        }
+
+        .editar-icono:hover {
+            color: #ffffff;
+        }
+
+        .contenedor-contraseña {
+            margin-top: 10px;
+            display: none;
+        }
+
+        .password-input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        .verificar-contraseña {
+            background-color: #000000;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .verificar-contraseña:hover {
+            background-color: #3d4780;
+        }
+
+        .menu-edicion {
+            display: none;
+            margin-top: 10px;
+        }
+
+        .menu-edicion input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        .guardar-btn {
+            background-color: #000000;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .guardar-btn:hover {
+            background-color: #3d4780;
+        }
+
+        .descargar {
+            display: inline-block;
+            background-color: #000000;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 5px;
+            text-decoration: none;
+            margin-top: 10px;
+            transition: background-color 0.3s ease;
+        }
+
+        .descargar:hover {
+            background-color: #3d4780;
+        }
+    </style>
+
+    <footer>
+        <p>Actualizada el 13/3/2025</p>
+    </footer>
+
+    <script>
+        document.getElementById('boton-retroceso').addEventListener('click', function() {
+            window.history.back();
+        });
+
+        import { Analytics } from "@vercel/analytics/react"
+    </script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/parse/3.4.1/parse.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+<script>
+
+function _0x3dea(_0x4d674d,_0xf9d761){var _0x905ceb=_0x905c();return _0x3dea=function(_0x3dea30,_0x4106f1){_0x3dea30=_0x3dea30-0x1f2;var _0x7a4959=_0x905ceb[_0x3dea30];return _0x7a4959;},_0x3dea(_0x4d674d,_0xf9d761);}var _0x5c497c=_0x3dea;function _0x905c(){var _0xca10af=['4203099RmNcjF','1757UBLHAE','158473mRnnHm','10AKrFNf','8074803Zkiwsm','https://parseapi.back4app.com/','478HbnGbv','taIPruK9w7amlQEpOqE2NLRoGglVv1tMaZVdNp1a','6779176mWUagP','264etbSfJ','6IiOBEv','serverURL','5686770rClAss','2396892AMsPsI','initialize'];_0x905c=function(){return _0xca10af;};return _0x905c();}(function(_0x186809,_0x177e8b){var _0xa39372=_0x3dea,_0x409684=_0x186809();while(!![]){try{var _0x1e1142=-parseInt(_0xa39372(0x1fe))/0x1*(-parseInt(_0xa39372(0x1f4))/0x2)+parseInt(_0xa39372(0x1f8))/0x3*(parseInt(_0xa39372(0x1fb))/0x4)+-parseInt(_0xa39372(0x1fa))/0x5+parseInt(_0xa39372(0x1f7))/0x6*(-parseInt(_0xa39372(0x1ff))/0x7)+parseInt(_0xa39372(0x1f6))/0x8+-parseInt(_0xa39372(0x1fd))/0x9+-parseInt(_0xa39372(0x200))/0xa*(-parseInt(_0xa39372(0x1f2))/0xb);if(_0x1e1142===_0x177e8b)break;else _0x409684['push'](_0x409684['shift']());}catch(_0x1fb6e4){_0x409684['push'](_0x409684['shift']());}}}(_0x905c,0x9253e),Parse[_0x5c497c(0x1fc)]('5m6w2VORNOrmWX2YKAGJAjUF7XqRj3CUFSu34qoz',_0x5c497c(0x1f5)),Parse[_0x5c497c(0x1f9)]=_0x5c497c(0x1f3));
+
+const CONTRASEÑA_HASH = '5aa7be94a0965f1dc7df42d77ebc64b4a478d37306a88f795ed550b549b84623';
+
+
+const CACHE_DURATION = 5 * 60 * 1000; 
+let cachedExecutors = null;
+let lastFetchTime = 0;
+
+
+const RATE_LIMIT = 10; 
+const RATE_WINDOW = 1000; 
+let requestTimestamps = [];
+
+function hashSHA256(text) { 
+    return CryptoJS.SHA256(text).toString(CryptoJS.enc.Hex);
+}
+
+
+function checkRateLimit() {
+    const now = Date.now();
+    
+    
+    requestTimestamps = requestTimestamps.filter(
+        timestamp => now - timestamp < RATE_WINDOW
+    );
+    
+    
+    if (requestTimestamps.length < RATE_LIMIT) {
+        requestTimestamps.push(now);
+        return true;
+    }
+    
+    return false;
+}
+
+
+async function fetchAllExecutors() {
+
+    const currentTime = Date.now();
+    if (cachedExecutors && (currentTime - lastFetchTime < CACHE_DURATION)) {
+        return cachedExecutors;
+    }
+    
+   
+    if (!checkRateLimit()) {
+        console.warn("Rate limitado porfavor espere");
+        if (cachedExecutors) {
+            return cachedExecutors;
+        }
+    
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        return fetchAllExecutors();
+    }
+    
+    try {
+        const Executor = Parse.Object.extend("Executor");
+        const query = new Parse.Query(Executor);
+        query.limit(1000);
+        
+        const results = await query.find();
+        
+
+        cachedExecutors = results;
+        lastFetchTime = currentTime;
+        
+        return results;
+    } catch (error) {
+        console.error("Error fetching executors:", error);
+        throw error;
+    }
+}
+
+
+function updateExecutorUI(executor, element) {
+    if (!element) return;
+    
+    const nombre = executor.get("nombre");
+    const version = executor.get("version");
+    const estado = executor.get("estado");
+    const enlace = executor.get("enlace");
+    
+    element.querySelector('p:nth-of-type(1)').textContent = `Versión: ${version}`;
+    element.querySelector('p:nth-of-type(2)').textContent = `Estado: ${estado}`;
+    element.querySelector('.descargar').href = enlace;
+}
+
+
+async function updateExecutor(executorId, newData) {
+
+    if (!checkRateLimit()) {
+        console.warn("Rate limit reached, waiting before updating...");
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        return updateExecutor(executorId, newData);
+    }
+    
+    try {
+        const Executor = Parse.Object.extend("Executor");
+        const query = new Parse.Query(Executor);
+        const executor = await query.get(executorId);
+        
+   
+        if (newData.version) executor.set("version", newData.version);
+        if (newData.estado) executor.set("estado", newData.estado);
+        if (newData.enlace) executor.set("enlace", newData.enlace);
+        
+        await executor.save();
+        
+ 
+        if (cachedExecutors) {
+            const cachedIndex = cachedExecutors.findIndex(e => e.id === executorId);
+            if (cachedIndex !== -1) {
+                cachedExecutors[cachedIndex] = executor;
+            }
+        }
+        
+        return executor;
+    } catch (error) {
+        console.error("Error updating executor:", error);
+        throw error;
+    }
+}
+
+
+document.addEventListener('DOMContentLoaded', async () => {
+    try {
+        const executors = await fetchAllExecutors();
+        
+ 
+        executors.forEach(executor => {
+            const nombre = executor.get("nombre");
+            const executorElement = Array.from(document.querySelectorAll('.boton-instalar h3'))
+                .find(el => el.textContent === nombre)
+                ?.closest('.boton-instalar');
+            
+            if (executorElement) {
+                updateExecutorUI(executor, executorElement);
+            }
+        });
+    } catch (error) {
+        console.error("Error loading executors:", error);
+    }
+});
+
+
+document.querySelectorAll('.editar-icono').forEach(icono => {
+    icono.addEventListener('click', function() {
+        const contenedorContraseña = this.closest('.boton-instalar').querySelector('.contenedor-contraseña');
+        contenedorContraseña.style.display = 'block';
+    });
+});
+
+
+document.querySelectorAll('.verificar-contraseña').forEach(button => {
+    button.addEventListener('click', function() {
+        const passwordInput = this.previousElementSibling;
+        const password = passwordInput.value;
+        const hashedPassword = hashSHA256(password);
+        
+        if (hashedPassword === CONTRASEÑA_HASH) {
+            const container = this.closest('.contenedor-contraseña');
+            container.style.display = 'none';
+            
+            const menuEdicion = this.closest('.boton-instalar').querySelector('.menu-edicion');
+            menuEdicion.style.display = 'block';
+        } else {
+            alert('Contraseña incorrecta');
+        }
+    });
+});
+
+
+document.querySelectorAll('.guardar-btn').forEach(button => {
+    button.addEventListener('click', async function() {
+        const executor = this.closest('.boton-instalar');
+        const nombreExecutor = executor.querySelector('h3').textContent;
+        const nuevaVersion = executor.querySelector('.nueva-version').value;
+        const nuevoEstado = executor.querySelector('.nuevo-estado').value;
+        const nuevoEnlace = executor.querySelector('.nuevo-enlace').value;
+
+        if (!nuevaVersion || !nuevoEstado || !nuevoEnlace) {
+            alert('Por favor completa todos los campos');
+            return;
+        }
+
+        try {
+     
+            const executorObj = cachedExecutors?.find(e => e.get("nombre") === nombreExecutor);
+            
+            if (executorObj) {
+              
+                await updateExecutor(executorObj.id, {
+                    version: nuevaVersion,
+                    estado: nuevoEstado,
+                    enlace: nuevoEnlace
+                });
+            
+                executor.querySelector('p:nth-of-type(1)').textContent = `Versión: ${nuevaVersion}`;
+                executor.querySelector('p:nth-of-type(2)').textContent = `Estado: ${nuevoEstado}`;
+                executor.querySelector('.descargar').href = nuevoEnlace;
+                
+             
+                executor.querySelector('.menu-edicion').style.display = 'none';
+                
+                alert('Cambios guardados');
+            } else {
+               
+                const Executor = Parse.Object.extend("Executor");
+                const newExecutor = new Executor();
+                
+                newExecutor.set("nombre", nombreExecutor);
+                newExecutor.set("version", nuevaVersion);
+                newExecutor.set("estado", nuevoEstado);
+                newExecutor.set("enlace", nuevoEnlace);
+                
+              
+                if (!checkRateLimit()) {
+                    alert('Límite de solicitudes alcanzado');
+                    return;
+                }
+                
+                await newExecutor.save();
+                
+        
+                executor.querySelector('p:nth-of-type(1)').textContent = `Versión: ${nuevaVersion}`;
+                executor.querySelector('p:nth-of-type(2)').textContent = `Estado: ${nuevoEstado}`;
+                executor.querySelector('.descargar').href = nuevoEnlace;
+                
+              
+                executor.querySelector('.menu-edicion').style.display = 'none';
+                
+        
+                if (cachedExecutors) {
+                    cachedExecutors.push(newExecutor);
+                }
+                
+                alert('Executor creado y guardado');
+            }
+        } catch (error) {
+            console.error("Error al guardar:", error);
+            alert('Error al guardar los cambios. Inténtalo de nuevo.');
+        }
+    });
+});
+
+
+document.getElementById('boton-retroceso')?.addEventListener('click', function() {
+    window.history.back();
+});
+
+
+document.addEventListener('keydown', function(e) {
+    if (e.key === "F12" || (e.ctrlKey && e.shiftKey && e.key === "I")) {
+        e.preventDefault();
+    }
+});
+
+document.addEventListener('contextmenu', function(e) {
+    e.preventDefault();
+});
+
+document.addEventListener('keydown', function(event) {
+    if ((event.ctrlKey || event.metaKey) && event.key === 's') {
+        event.preventDefault();
+        alert('Guardar esta página está deshabilitado.');
+    }
+});
+</script>
+    <style>
+        .editar-icono {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    color: #9e9e9e;
+    font-size: 20px;
+    transition: color 0.3s ease;
+}
+
+.editar-icono:hover {
+    color: #ffffff;
+}
+
+.contenedor-contraseña {
+    margin-top: 10px;
+    display: none;
+}
+
+.password-input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.verificar-contraseña {
+    background-color: #000000;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.verificar-contraseña:hover {
+    background-color: #3d4780;
+}
+
+.menu-edicion {
+    display: none;
+    margin-top: 10px;
+}
+
+.menu-edicion input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.guardar-btn {
+    background-color: #000000;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.guardar-btn:hover {
+    background-color: #3d4780;
+}
+
+.descargar {
+    display: inline-block;
+    background-color: #000000;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 5px;
+    text-decoration: none;
+    margin-top: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.descargar:hover {
+    background-color: #3d4780;
+}
+    </style>
+    <style>
+            .icono-pico {
+            width: 30px;
+            height: 30px;
+            vertical-align: super;
+            margin-right: 1px;
+            vertical-align:sub;
+            transition: transform 0.3s ease;
+        }
+        .boton-instalar33 {
+            position: relative; 
+            display: inline-block;
+            background-color: #000000;
+            color: white;
+            border: none;
+            padding: 15px 20px;
+            border-radius: 7px;
+            text-decoration: none; 
+            text-align: center;
+            cursor: pointer;
+            transition: background-color 0.5s;
+        }
+ body {
+  margin: 0;
+  height: 570vh;
+  max-height: 570vh;
+  background: radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 100%);
+  position: relative;
+  font-family: Arial, sans-serif;
+}
+
+.container {
+  height: 570vh; 
+  overflow-y: auto; }
+
+body::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 570vh; 
+  background-image: 
+    radial-gradient(1px 1px at 25% 10%, rgba(255, 255, 255, 0.9) 100%, transparent),
+    radial-gradient(1px 1px at 50% 25%, rgba(255, 255, 255, 0.9) 100%, transparent),
+    radial-gradient(1px 1px at 75% 30%, rgba(255, 255, 255, 0.9) 100%, transparent),
+    radial-gradient(1.5px 1.5px at 15% 40%, rgba(255, 255, 255, 0.9) 100%, transparent),
+    radial-gradient(1.5px 1.5px at 60% 70%, rgba(255, 255, 255, 0.9) 100%, transparent),
+    radial-gradient(1px 1px at 30% 65%, rgba(255, 255, 255, 0.9) 100%, transparent),
+    radial-gradient(1px 1px at 90% 85%, rgba(255, 255, 255, 0.9) 100%, transparent),
+    radial-gradient(1.5px 1.5px at 80% 15%, rgba(255, 255, 255, 0.9) 100%, transparent),
+    radial-gradient(1.5px 1.5px at 10% 90%, rgba(255, 255, 255, 0.9) 100%, transparent),
+    radial-gradient(1px 1px at 35% 80%, rgba(255, 255, 255, 0.9) 100%, transparent),
+    radial-gradient(1px 1px at 65% 40%, rgba(255, 255, 255, 0.9) 100%, transparent),
+    radial-gradient(1.5px 1.5px at 40% 50%, rgba(255, 255, 255, 0.9) 100%, transparent),
+    radial-gradient(2px 2px at 55% 90%, rgba(255, 255, 255, 0.9) 100%, transparent),
+    radial-gradient(2px 2px at 85% 55%, rgba(255, 255, 255, 0.9) 100%, transparent),
+    radial-gradient(2px 2px at 20% 20%, rgba(255, 255, 255, 0.9) 100%, transparent),
+    radial-gradient(2px 2px at 45% 5%, rgba(255, 255, 255, 0.9) 100%, transparent),
+    radial-gradient(2px 2px at 95% 35%, rgba(255, 255, 255, 0.9) 100%, transparent),
+    radial-gradient(2px 2px at 5% 50%, rgba(255, 255, 255, 0.9) 100%, transparent),
+    radial-gradient(2px 2px at 70% 95%, rgba(255, 255, 255, 0.9) 100%, transparent);
+  background-repeat: repeat;
+  background-size: 400px 400px;
+  animation: twinkling 40s linear infinite;
+  opacity: 0.8;
+}
+
+.shooting-stars {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  transform: rotate(-45deg);
+}
+
+.shooting-star {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 4px;
+  height: 4px;
+  background: linear-gradient(-45deg, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));
+  border-radius: 999px;
+  filter: drop-shadow(0 0 6px rgba(105, 155, 255, 1));
+  animation: tail 3s ease-in-out infinite, shooting 3s ease-in-out infinite;
+}
+
+.shooting-star:nth-child(1) {
+  top: calc(50% - 200px);
+  left: calc(50% - 300px);
+  animation-delay: 1s;
+}
+
+.shooting-star:nth-child(2) {
+  top: calc(50% - 100px);
+  left: calc(50% - 190px);
+  animation-delay: 1.6s;
+}
+
+.shooting-star:nth-child(3) {
+  top: calc(50% - 50px);
+  left: calc(50% + 100px);
+  animation-delay: 2.1s;
+}
+
+.shooting-star:nth-child(4) {
+  top: calc(50% + 70px);
+  left: calc(50% - 250px);
+  animation-delay: 2.5s;
+}
+
+@keyframes twinkling {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-500px);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 0.2;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 0.2;
+  }
+}
+
+@keyframes tail {
+  0% {
+    width: 0;
+  }
+  30% {
+    width: 100px;
+  }
+  100% {
+    width: 0;
+  }
+}
+
+@keyframes shooting {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(300px);
+  }
+}
+
+.nebula {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(30px);
+  opacity: 0.15;
+  background: radial-gradient(circle, rgba(63, 94, 251, 0.6) 0%, rgba(252, 70, 107, 0) 70%);
+}
+
+.nebula:nth-child(1) {
+  width: 300px;
+  height: 300px;
+  top: 20%;
+  left: 15%;
+  animation: float 30s infinite alternate ease-in-out;
+}
+
+.nebula:nth-child(2) {
+  width: 250px;
+  height: 250px;
+  top: 60%;
+  left: 75%;
+  background: radial-gradient(circle, rgba(72, 219, 251, 0.6) 0%, rgba(29, 209, 161, 0) 70%);
+  animation: float 25s infinite alternate-reverse ease-in-out;
+}
+
+@keyframes float {
+  0% {
+    transform: translate(0, 0);
+  }
+  50% {
+    transform: translate(-10px, 10px);
+  }
+  100% {
+    transform: translate(10px, -10px);
+  }
+}
+
+    </style>
+        <footer>
+            <a href="https://discord.gg/Qp2R3h77Dh" class="boton-instalar33"> <img src="imagenes/discord.gif" class="icono-pico">  Support</a>
+        </footer>
+</body>
+</html>
